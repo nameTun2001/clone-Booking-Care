@@ -1,7 +1,7 @@
 import db from "../models/index.js";
 import bcrypt from "bcryptjs";
 // let salt = bcrypt.genSaltSync(10);
-const handleLogin = (userEmail, userPassword) => {
+const handleUserLogin = (userEmail, userPassword) => {
   return new Promise(async (resolve, reject) => {
     try {
       let userData = {};
@@ -62,7 +62,4 @@ const checkUserEmail = async (userEmail) => {
 // module.exports = {
 //   handleLogin: handleLogin,
 // };
-export {
-  handleLogin,
-  checkUserEmail
-};
+export { handleUserLogin, checkUserEmail };

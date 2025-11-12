@@ -1,6 +1,6 @@
-import * as handleLogin from "../services/userService.js";
+import {handleUserLogin} from "../services/userService.js";
 
-let handleLoginApi = async (req, res) => {
+const handleLogin = async (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
   if (!email || !password) {
@@ -9,7 +9,7 @@ let handleLoginApi = async (req, res) => {
       message: "Missing inputs parameter!",
     });
   }
-  let userData = await handleLogin(email, password);
+  const userData = await handleUserLogin(email, password);
   return res.status(200).json({
     error: userData.errCode,
     message: userData.errMessage,
@@ -20,4 +20,4 @@ let handleLoginApi = async (req, res) => {
 // module.exports = {
 //   handleLogin: handleLogin,
 // };
-export { handleLoginApi };
+export { handleLogin };

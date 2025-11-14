@@ -6,7 +6,11 @@
     "host": "127.0.0.1",
     "dialect": "mysql",
     "logging": false,
-    "assert": { "type": "json" }
+    "assert": { "type": "json" },
+    "timezone":"+07:00",
+    "query":{
+      "raw":true
+    }
   },
   "test": {
     "username": "root",

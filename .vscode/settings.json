@@ -1,0 +1,6 @@
+{
+    "C_Cpp.errorSquiggles": "enabled",
+    "intellicodeApiExamples.loggingLevel": "ALL",
+    "intellicodeApiExamples.typescript.enabled": true,
+    "vsintellicode.sql.completionsEnabled": false
+}

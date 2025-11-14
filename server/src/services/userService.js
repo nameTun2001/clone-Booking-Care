@@ -43,6 +43,7 @@ const handleUserLogin = (userEmail, userPassword) => {
     }
   });
 };
+
 const checkUserEmail = async (userEmail) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -59,7 +60,28 @@ const checkUserEmail = async (userEmail) => {
     }
   });
 };
-// module.exports = {
-//   handleLogin: handleLogin,
-// };
-export { handleUserLogin, checkUserEmail };
+let getAllUser = async (userId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = '';
+      if (userId === "ALL") {
+        user = await db.User.findAll({
+          attributes:{
+            exclude: ["password"]
+          }
+        });
+      }
+      if (userId && userId !== "ALL") {
+        user = await db.User.findOne({
+          where: {
+            id: userId,
+          },
+        });
+      }
+      resolve(user);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export { handleUserLogin, getAllUser };

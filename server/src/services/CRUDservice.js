@@ -112,15 +112,10 @@ const deleteUserById = (data) => {
     }
   });
 };
-// module.exports = {
-//   createNewUser: createNewUser,
-//   getAllUsers: getAllUsers,
-//   getUserInfoById: getUserInfoById,
-//   updateUserData: updateUserData,
-//   deleteUserById: deleteUserById,
-// };
+
 export {
   createNewUser,
+  hashUserPassword,
   getAllUsers,
   getUserInfoById,
   updateUserData,

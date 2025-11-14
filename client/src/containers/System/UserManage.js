@@ -57,6 +57,9 @@ class UserManage extends Component {
               })}
           </tbody>
         </table>
+        {/* <button type="button"> Create New User
+            {onclick}
+        </button> */}
       </div>
     );
   }

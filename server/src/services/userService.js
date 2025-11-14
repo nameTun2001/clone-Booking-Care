@@ -1,7 +1,7 @@
 import db from "../models/index.js";
 import bcrypt from "bcryptjs";
-// let salt = bcrypt.genSaltSync(10);
-const handleUserLogin = (userEmail, userPassword) => {
+import { hashUserPassword, getUserInfoById } from "./CRUDservice.js";
+const userLogin = (userEmail, userPassword) => {
   return new Promise(async (resolve, reject) => {
     try {
       let userData = {};
@@ -60,15 +60,15 @@ const checkUserEmail = async (userEmail) => {
     }
   });
 };
-let getAllUser = async (userId) => {
+const getAllUser = async (userId) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let user = '';
+      let user = "";
       if (userId === "ALL") {
         user = await db.User.findAll({
-          attributes:{
-            exclude: ["password"]
-          }
+          attributes: {
+            exclude: ["password"],
+          },
         });
       }
       if (userId && userId !== "ALL") {
@@ -84,4 +84,66 @@ let getAllUser = async (userId) => {
     }
   });
 };
-export { handleUserLogin, getAllUser };
+const createNewUser = async (userData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let checkUserExistion = await checkUserEmail(userData.email);
+      if (checkUserExistion === false) {
+        let new_password = await hashUserPassword(userData.password);
+        await db.User.create({
+          email: userData.email,
+          password: new_password,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          address: userData.address,
+          gender: userData.gender === "1" ? true : false,
+          roleId: userData.roleId,
+          positionId: userData.positionId,
+          phoneNumber: userData.phoneNumber,
+          image: userData.image,
+        });
+        resolve({
+          errCode: 0,
+          errMessage: "Create new user succeed",
+        });
+      } else {
+        resolve({
+          errCode: 1,
+          errMessage:
+            "Your email isn't exist in our system. Please try other email!",
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+const deleteUser = async (userData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let checkUserExistion = await checkUserEmail(userData.email);
+      console.log(checkUserExistion);
+      
+      if (checkUserExistion === true) {
+        await db.User.destroy({
+          where: {
+            id: userData.id,
+          },
+        });
+        let allUsers = await db.User.findAll();
+        resolve(allUsers);
+      } else {
+        let allUsers = await db.User.findAll();
+        resolve({
+          errCode: 1,
+          errMessage:
+            "Your email isn't exist in our system. Please try other email!",
+          allUsers,
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export { userLogin, checkUserEmail, getAllUser, createNewUser, deleteUser };

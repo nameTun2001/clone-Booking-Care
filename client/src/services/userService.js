@@ -22,5 +22,15 @@ const getAllUser = async (inputId) =>{
     throw error;
   }
 }
+// const createNewUserApi = async (userData) => {
+//   try {
+//     const response = await axios.post("/api/create-new-user",{
+//       userData
+//     });
+//     return response;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 export {handleLoginApi, getAllUser};

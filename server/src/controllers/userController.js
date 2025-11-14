@@ -19,9 +19,9 @@ const handleLogin = async (req, res) => {
   });
 };
 const handleGetAllUser = async (req, res) => {
-  let id = req.body.id;
-  let user = await userService.getAllUser(id);
-  console.log(user);
+  let id = req.query.id;
+
+  // console.log(user);
   if (!id) {
     return res.status(200).json({
       errCode: 1,
@@ -29,6 +29,7 @@ const handleGetAllUser = async (req, res) => {
       user: [],
     });
   }
+  let user = await userService.getAllUser(id);
   return res.status(200).json({
     errCode: 0,
     errMessage: "ok",

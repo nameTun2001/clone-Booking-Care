@@ -34,26 +34,23 @@ class Login extends Component {
       isShowPassword: !this.state.isShowPassword,
     });
   };
+
   handleLogin = async () => {
     this.setState({ errMessage: "" });
     try {
-      let data = await handleLoginApi(this.state.username, this.state.password);
-      // console.log(data);
-      
-      if(data && data.errCode !== 0){
+      let response = await handleLoginApi(this.state.username, this.state.password);
+      if (response && response.data.errCode !== 0) {
         this.setState({
-          errMessage: data.message,
+          errMessage: response.data.message,
         });
       }
-      if (data && data.errCode === 0) {
-        this.props.adminLoginSuccess(data.user);
+      if (response && response.data.errCode === 0) {
+        this.props.userLoginSuccess(response.data.user);
         console.log("login success");
       }
-    } 
-    catch (error) {
+    } catch (error) {
       if (error.response) {
-        console.log('error response',error.response);
-        
+        // console.log("error response", error.response);
         if (error.response.data) {
           this.setState({
             errMessage: error.response.data.message,
@@ -149,6 +146,7 @@ class Login extends Component {
                 Sign In
               </button>
             </form>
+            
           </div>
           <div className="overlay-container">
             <div className="overlay">
@@ -196,10 +194,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
-    adminLoginSuccess: (adminInfo) =>
-      dispatch(actions.adminLoginSuccess(adminInfo)),
-    adminLoginFail: () => dispatch(actions.adminLoginFail()),
+    userLoginFail: () => dispatch(actions.userLoginFail()),
+    userLoginSuccess: (userInfo) =>
+      dispatch(actions.userLoginSuccess(userInfo)),
   };
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

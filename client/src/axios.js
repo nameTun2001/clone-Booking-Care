@@ -1,10 +1,12 @@
 import axios from "axios";
 import _ from "lodash";
+import dotenv from "dotenv";
+dotenv.config();
 // import config from "./config";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
-//   withCredentials: true
+  withCredentials: true
 });
 
 // const createError = (httpStatusCode, statusCode, errorMessage, problems, errorCode = '') => {
@@ -60,9 +62,14 @@ const instance = axios.create({
 //         return Promise.reject(createError(response.status));
 //     }
 // );
-instance.interceptors.response.use((response) => {
-  const { data } = response;
-  return response.data;
-});
+// instance.interceptors.response.use((response) => {
+//   const { data } = response;
+//   return response.data;
+// });
 
+// client/src/axios.js
+instance.interceptors.response.use(
+  (response) => response, // trả về full response object
+  (error) => Promise.reject(error)
+);
 export default instance;

@@ -36,7 +36,7 @@ const handleGetAllUser = async (req, res) => {
     user,
   });
 };
-let handleCreateNewUser = async (req, res) => {
+const handleCreateNewUser = async (req, res) => {
   let user = await userService.createNewUser(req.body);
   console.log(user);
   return res.status(200).json(
@@ -51,4 +51,18 @@ const handleDeleteUser = async(req,res) =>{
     user
   })
 }
-export { handleLogin, handleGetAllUser, handleCreateNewUser, handleDeleteUser };
+const handleUpdateUser = async(req,res) =>{
+  let user = await userService.updateUser(req.body);
+  return res.status(200).json({
+    // errCode,
+    // errMessage,
+    user,
+  });
+}
+export {
+  handleLogin,
+  handleGetAllUser,
+  handleCreateNewUser,
+  handleDeleteUser,
+  handleUpdateUser,
+};

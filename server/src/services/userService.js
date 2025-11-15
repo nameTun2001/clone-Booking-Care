@@ -122,8 +122,7 @@ const deleteUser = async (userData) => {
   return new Promise(async (resolve, reject) => {
     try {
       let checkUserExistion = await checkUserEmail(userData.email);
-      console.log(checkUserExistion);
-      
+
       if (checkUserExistion === true) {
         await db.User.destroy({
           where: {
@@ -146,4 +145,57 @@ const deleteUser = async (userData) => {
     }
   });
 };
-export { userLogin, checkUserEmail, getAllUser, createNewUser, deleteUser };
+const updateUser = async (userData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if(!userData.email){
+        resolve({
+          errCode:2,
+          errMessage:"Missing parameter!, pls input your email!",
+          userData:[]
+        })
+      }
+      let checkUserExistion = await checkUserEmail(userData.email);
+      if (checkUserExistion == true) {
+        await db.User.update(
+          {
+            email: userData.email,
+            password: userData.password,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            address: userData.address,
+            gender: userData.gender === "1" ? true : false,
+            roleId: userData.roleId,
+            positionId: userData.positionId,
+            phoneNumber: userData.phoneNumber,
+            image: userData.image,
+          },
+          { where: { email: userData.email } }
+        );
+        let allUsers = await db.User.findAll();
+        resolve({
+          errCode: 0,
+          errMessage: "update the user succeeds!",
+          allUsers,
+        });
+      } else {
+        resolve({
+          rrCode: 1,
+          errMessage:
+            "Your email isn't exist in our system. Please try other email!",
+          allUsers,
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export {
+  userLogin,
+  checkUserEmail,
+  getAllUser,
+  createNewUser,
+  deleteUser,
+  updateUser,
+};

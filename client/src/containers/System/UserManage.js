@@ -66,7 +66,9 @@ class UserManage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

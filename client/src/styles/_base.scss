@@ -1,32 +1,36 @@
 /*
  * General styles
  */
- body, html {
-    background-image: "#fff";
-    background-repeat: no-repeat;
-    background-size: cover;
-    font-family: $fontmain;
-    font-size: $base-size - 2px;
-    height: 100vh;
-    overflow: hidden;
+body,
+html {
+  background-image: "#fff";
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: $fontmain;
+  font-size: $base-size - 2px;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .btn {
-    padding: 0;
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
-    height: 30px;
-    line-height: 30px;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    i {
-      font-size: $base-size - 3px;
-    }
+  padding: 8px 16px;
+  border: 1px solid #377aff;
+  background-color: #f5f5f5;
+  color: #333;
+  border-radius: 4px;
+
+  /* Hiệu ứng nhẹ nhàng */
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.btn-edit, 
+.btn:hover {
+  background-color: #3923ff;
+}
+
+.btn:active {
+  background-color: #ddd;
+}
+.btn-edit,
 .btn-add,
 .btn-delete,
 .btn-assign {
@@ -59,7 +63,7 @@
 #password::-ms-input-placeholder {
   font-family: $fontmain; // EDGE 2
 }
-#password::placeholder { 
+#password::placeholder {
   font-family: $fontmain;
 }
 

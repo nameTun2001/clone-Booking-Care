@@ -88,9 +88,12 @@ import { connect } from "react-redux";
 import { getAllUser } from "../../services/userService";
 import { Button } from "react-bootstrap";
 import "./UserManager.scss";
+import ModlaUser from "./ModlaUser";
+import { set } from "lodash";
 
 function UserManage() {
   const [arrUsers, setArrUsers] = useState([]);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     async function fetchUsers() {
@@ -99,17 +102,38 @@ function UserManage() {
     }
     fetchUsers();
   }, []);
+  const handleAddNewUser = () => {
+    setShow(true);
+  };
+
+  const createNewUser = (data) => {
+    console.log("Check data from child: ", data);
+    // Đây là nơi bạn sẽ gọi API để tạo người dùng mới
+    // Ví dụ: await createNewUserApi(data);
+  };
 
   return (
-    <div className="text-center adc">
-      <Button variant="primary m-3 custom-btn-add-user">Add new user</Button>
+    <div className="px-5 position-relative ">
+      <ModlaUser show={show} onClose={() => setShow(false)} createNewUser={createNewUser} />
+      <Button
+        className="primary m-3 custom-btn-add-user "
+        onClick={handleAddNewUser}
+      >
+        <i class="fa-solid fa-plus pe-3"></i>
+        Add new user
+      </Button>
 
-      <table className="table table-striped table-hover table-bordered border-primary">
+      <table className="table table-striped table-hover table-bordered border-primary mt-5">
         <thead>
           <tr>
-            <th scope="col">ID</th>
+            <th scope="col" >ID</th>
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
+            <th scope="col">Address</th>
+
+            <th scope="col">Gender</th>
+            <th scope="col">Phone Number</th>
+
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -118,9 +142,13 @@ function UserManage() {
           {arrUsers &&
             arrUsers.map((item) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
+                <td className="text-center">{item.id}</td>
                 <td>{item.firstName}</td>
                 <td>{item.lastName}</td>
+                <td>{item.address}</td>
+
+                <td>{item.gender ? "Male" : "Female"}</td>
+                <td>{item.phoneNumber}</td>
 
                 <td>
                   <button

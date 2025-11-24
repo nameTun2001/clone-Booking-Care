@@ -5,7 +5,7 @@ import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 // import userService cline
 import { handleLoginApi } from "../../services/userService";
-import "./Login.scss";
+import "./Login.module.scss";
 // import { FormattedMessage } from 'react-intl';
 
 class Login extends Component {

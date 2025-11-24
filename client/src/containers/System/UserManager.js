@@ -114,7 +114,11 @@ function UserManage() {
 
   return (
     <div className="px-5 position-relative ">
-      <ModlaUser show={show} onClose={() => setShow(false)} createNewUser={createNewUser} />
+      <ModlaUser
+        show={show}
+        onClose={() => setShow(false)}
+        createNewUser={createNewUser}
+      />
       <Button
         className="primary m-3 custom-btn-add-user "
         onClick={handleAddNewUser}
@@ -123,10 +127,10 @@ function UserManage() {
         Add new user
       </Button>
 
-      <table className="table table-striped table-hover table-bordered border-primary mt-5">
+      <table className="table table-striped table-hover table-bordered border-primary mt-5 text-center">
         <thead>
           <tr>
-            <th scope="col" >ID</th>
+            <th scope="col">ID</th>
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Address</th>
@@ -142,14 +146,14 @@ function UserManage() {
           {arrUsers &&
             arrUsers.map((item) => (
               <tr key={item.id}>
-                <td className="text-center">{item.id}</td>
-                <td>{item.firstName}</td>
-                <td>{item.lastName}</td>
-                <td>{item.address}</td>
-
-                <td>{item.gender ? "Male" : "Female"}</td>
-                <td>{item.phoneNumber}</td>
-
+                <td className="text-center align-middle">{item.id}</td>
+                <td className="align-middle ">{item.firstName}</td>
+                <td className="align-middle">{item.lastName}</td>
+                <td className="align-middle">{item.address}</td>
+                <td className="align-middle">
+                  {item.gender ? "Male" : "Female"}
+                </td>
+                <td className="align-middle">{item.phoneNumber}</td>
                 <td>
                   <button
                     type="button"

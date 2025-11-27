@@ -119,25 +119,27 @@ const createNewUser = async (userData) => {
   });
 };
 const deleteUser = async (userData) => {
+ 
   return new Promise(async (resolve, reject) => {
     try {
-      let checkUserExistion = await checkUserEmail(userData.email);
+      let user = await db.User.findOne({
+        where: { id: userData.id },
+      });
 
-      if (checkUserExistion === true) {
+      if (user) {
         await db.User.destroy({
-          where: {
-            id: userData.id,
-          },
+          where: { id: userData.id },
         });
-        let allUsers = await db.User.findAll();
-        resolve(allUsers);
-      } else {
-        let allUsers = await db.User.findAll();
+        // let allUsers = await db.User.findAll();
+        // resolve(allUsers);
         resolve({
-          errCode: 1,
-          errMessage:
-            "Your email isn't exist in our system. Please try other email!",
-          allUsers,
+          errCode: 0,
+          errMessage: "The user is deleted.",
+        });
+      } else {
+        resolve({
+          errCode: 2,
+          errMessage: "The user isn't exist.",
         });
       }
     } catch (error) {
@@ -148,12 +150,12 @@ const deleteUser = async (userData) => {
 const updateUser = async (userData) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if(!userData.email){
+      if (!userData.email) {
         resolve({
-          errCode:2,
-          errMessage:"Missing parameter!, pls input your email!",
-          userData:[]
-        })
+          errCode: 2,
+          errMessage: "Missing parameter!, pls input your email!",
+          userData: [],
+        });
       }
       let checkUserExistion = await checkUserEmail(userData.email);
       if (checkUserExistion == true) {

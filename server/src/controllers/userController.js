@@ -1,4 +1,5 @@
 // import {userLogin} from "../services/userService.js";
+import { response } from "express";
 import * as userService from "../services/userService.js";
 
 const handleLogin = async (req, res) => {
@@ -37,28 +38,17 @@ const handleGetAllUser = async (req, res) => {
   });
 };
 const handleCreateNewUser = async (req, res) => {
-  let user = await userService.createNewUser(req.body);
-  console.log(user);
-  return res.status(200).json(
-    user
-  )
+  let response = await userService.createNewUser(req.body);
+  return res.status(200).json(response);
 };
-const handleDeleteUser = async(req,res) =>{
-  let user = await userService.deleteUser(req.body);
-  return res.status(200).json({
-    // errCode,
-    // errMessage,
-    user
-  })
-}
-const handleUpdateUser = async(req,res) =>{
-  let user = await userService.updateUser(req.body);
-  return res.status(200).json({
-    // errCode,
-    // errMessage,
-    user,
-  });
-}
+const handleDeleteUser = async (req, res) => {
+  let response = await userService.deleteUser(req.body);
+  return res.status(200).json(response);
+};
+const handleUpdateUser = async (req, res) => {
+  let response = await userService.updateUser(req.body);
+  return res.status(200).json(response);
+};
 export {
   handleLogin,
   handleGetAllUser,

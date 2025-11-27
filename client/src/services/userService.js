@@ -14,23 +14,47 @@ const handleLoginApi = async (userEmail, userPassword) => {
     throw error;
   }
 };
-const getAllUser = async (inputId) =>{
+const getAllUser = async (inputId) => {
   try {
     const response = await axios.get(`/api/get-all-user?id=${inputId}`);
     return response;
   } catch (error) {
     throw error;
   }
-}
-// const createNewUserApi = async (userData) => {
-//   try {
-//     const response = await axios.post("/api/create-new-user",{
-//       userData
-//     });
-//     return response;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
-export {handleLoginApi, getAllUser};
+};
+const createNewUserApi = async (userData) => {
+  console.log("check fetch data: ", userData);
+  try {
+    const response = await axios.post("/api/create-new-user", userData);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+const deleteUserApi = async (userData) => {
+  console.log("check fetch data: ", userData);
+  try {
+    const response = await axios.delete("/api/delete-user", {
+      data: { id: userData.id },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+const editUserApi = async (userData) => {
+  console.log("check data: ", userData);
+  try {
+    const response = await axios.put("/api/update-user", userData);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+export {
+  handleLoginApi,
+  getAllUser,
+  createNewUserApi,
+  deleteUserApi,
+  editUserApi,
+};
